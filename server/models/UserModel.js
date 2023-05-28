@@ -13,12 +13,20 @@ const UserSchema = mongoose.Schema({
     trim: true,
     lowercase: true,
   },
+  phone: {
+    type: Number,
+    required: true,
+    trim: true
+  },
   password: {
     type: String,
     required: true,
-    minlength: 7,
     trim: true,
   },
+  isAdmin: {
+    type: Boolean,
+    default: false
+  }
 },{
    timestamps: true,
  })

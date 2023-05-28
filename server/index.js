@@ -5,6 +5,7 @@ import dotenv from 'dotenv'
 import bodyParser from "body-parser";
 import helmet from 'helmet';
 import userRouter from './routes/user.js'
+import authRouter from './routes/auth.js'
 
 // CONFIGURATION
 dotenv.config();
@@ -18,7 +19,9 @@ app.use(cors());
 
 
 // ROUTES
+app.use("/auth", authRouter)
 app.use("/users", userRouter)
+
 
  // MONGOOSE SETUP
  const PORT = process.env.PORT || 5000;
