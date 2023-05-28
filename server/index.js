@@ -4,6 +4,7 @@ import cors from 'cors'
 import dotenv from 'dotenv'
 import bodyParser from "body-parser";
 import helmet from 'helmet';
+import userRouter from './routes/user.js'
 
 // CONFIGURATION
 dotenv.config();
@@ -14,6 +15,10 @@ app.use(helmet.crossOriginResourcePolicy({policy: "cross-origin"}));
 app.use(bodyParser.json({limit: "30mb", extended: true}));
 app.use(bodyParser.urlencoded({limit: "30mb", extended: true}))
 app.use(cors());
+
+
+// ROUTES
+app.use("/users", userRouter)
 
  // MONGOOSE SETUP
  const PORT = process.env.PORT || 5000;
