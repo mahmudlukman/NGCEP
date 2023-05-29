@@ -1,3 +1,4 @@
+import mongoose from 'mongoose'
 import User from '../models/UserModel.js'
 import bcrypt from 'bcrypt'
 
@@ -17,7 +18,7 @@ export const getAllUsers = async (req, res) => {
 // GET A SINGLE USER
 export const getUser = async (req, res) => {
   try {
-    const user = await User.findById(req.params.id)
+    const user = await User.findById(req.params.id).select('-password')
     res.status(200).json(user)
   } catch (error) {
     res.status(500).json({message: "Something went wrong"})
@@ -25,14 +26,47 @@ export const getUser = async (req, res) => {
 }
 
 // UPDATE USER
-
-
-// DELETE
-export const deleteUser = async (req, res) => {
+export const updateUser = async (req, res) => {
+  const { id } = req.params;
+  const { firstName, lastName, email, phone} = req.body;
   try {
-    await User.findByIdAndDelete(req.params.id)
-    res.status(200).json("User has been deleted")
-  } catch (err) {
-    res.status(500).json({message: "Something went wrong"})
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(404).json({ message: `No user exist with id: ${id}` });
+    }
+
+    const updatedUser = {
+      name: `${firstName} ${lastName}`,
+      email,
+      phone,
+      _id: id,
+    };
+    await User.findByIdAndUpdate(id, updatedUser, { new: true });
+    res.json(updatedUser);
+  } catch (error) {
+    res.status(404).json({ message: "Something went wrong" });
+  }
+};
+
+
+
+// DELETE USER
+export const deleteUser = async (req, res) => {
+  const {id} = req.params
+  try {
+    if(!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(404).json({message: `No user exist with id: ${id}`})
+    }
+    await User.findByIdAndRemove(id)
+    res.json({message: "User deleted Successfully"})
+  } catch (error) {
+    res.status(404).json({ message: "Something went wrong" });
   }
 }
+// export const deleteUser = async (req, res) => {
+//   try {
+//     await User.findByIdAndDelete(req.params.id)
+//     res.status(200).json("User has been deleted")
+//   } catch (err) {
+//     res.status(500).json({message: "Something went wrong"})
+//   }
+// }
