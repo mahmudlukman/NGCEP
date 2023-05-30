@@ -6,6 +6,7 @@ import bodyParser from "body-parser";
 import helmet from 'helmet';
 import userRouter from './routes/user.js'
 import authRouter from './routes/auth.js'
+import productRouter from './routes/product.js'
 
 // CONFIGURATION
 dotenv.config();
@@ -21,6 +22,7 @@ app.use(cors());
 // ROUTES
 app.use("/auth", authRouter)
 app.use("/users", userRouter)
+app.use("/products", productRouter)
 
 
  // MONGOOSE SETUP

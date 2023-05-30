@@ -48,7 +48,9 @@ const ProductSchema = mongoose.Schema({
   email: {
     type: String,
     trim: true,
-  }
+    lowercase: true,
+  },
+  creator: String,
 },{
    timestamps: true,
  })
