@@ -96,3 +96,12 @@ export const updateProduct = async (req, res) => {
     res.status(404).json({ message: "Something went wrong" });
   }
 };
+
+export const getProductsByUser = async (req, res) => {
+  const { id } = req.params;
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({ message: "User doesn't exist" });
+  }
+  const userProducts = await Product.find({ creator: id });
+  res.status(200).json(userProducts);
+};

@@ -28,14 +28,14 @@ export const getUser = async (req, res) => {
 // UPDATE USER
 export const updateUser = async (req, res) => {
   const { id } = req.params;
-  const { firstName, lastName, email, phone} = req.body;
+  const { name, email, phone} = req.body;
   try {
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return res.status(404).json({ message: `No user exist with id: ${id}` });
     }
 
     const updatedUser = {
-      name: `${firstName} ${lastName}`,
+      name,
       email,
       phone,
       _id: id,
