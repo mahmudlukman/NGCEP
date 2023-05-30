@@ -52,3 +52,47 @@ export const deleteProduct = async (req, res) => {
     res.status(404).json({ message: "Something went wrong" });
   }
 };
+
+// UPDATE PRODUCT
+export const updateProduct = async (req, res) => {
+  const { id } = req.params;
+  const { 
+    usage_type, 
+    type, 
+    power, 
+    model, 
+    serial_number,
+    company_name,
+    address, 
+    state, 
+    lga,
+    contact_person,
+    phone,
+    email
+  } = req.body;
+  try {
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(404).json({ message: `No product exist with id: ${id}` });
+    }
+
+    const updatedProduct = {
+      usage_type, 
+      type, 
+      power, 
+      model, 
+      serial_number,
+      company_name,
+      address, 
+      state, 
+      lga,
+      contact_person,
+      phone,
+      email,
+      _id: id,
+    };
+    await Product.findByIdAndUpdate(id, updatedProduct, { new: true });
+    res.json(updatedProduct);
+  } catch (error) {
+    res.status(404).json({ message: "Something went wrong" });
+  }
+};
