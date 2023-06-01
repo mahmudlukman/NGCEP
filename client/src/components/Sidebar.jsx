@@ -168,7 +168,7 @@ const Sidebar = ({ drawerWidth, isSidebarOpen, setIsSidebarOpen, isNonMobile}) =
                   {user?.result?.name}
                   </Typography>
                   <Typography fontSize="0.8rem" sx={{colo: theme.palette.secondary[200]}}>
-                    Admin
+                  {user?.result?.role}
                   </Typography>
                 </Box>
                 <SettingsOutlined sx={{color: theme.palette.secondary[300], fontSize: "25px"}}/>

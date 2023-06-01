@@ -58,7 +58,7 @@ const Navbar = ({ isSidebarOpen, setIsSidebarOpen }) => {
                 {user?.result?.name}
                 </Typography>
                 <Typography fontSize="0.75rem" sx={{ colo: theme.palette.secondary[200] }}>
-                  Admin
+                {user?.result?.role}
                 </Typography>
               </Box>
               <ArrowDropDownOutlined sx={{ color: theme.palette.secondary[300], fontSize: "25px" }} />
