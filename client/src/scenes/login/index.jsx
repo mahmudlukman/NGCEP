@@ -4,7 +4,7 @@ import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import { useNavigate, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from "react-toastify";
-import {login} from "../../redux/features/authSlice"
+import { login } from "../../redux/features/authSlice"
 import FlexBetween from '../../components/FlexBetween';
 import Form from './Form';
 
@@ -39,7 +39,7 @@ const Login = () => {
     let { name, value } = e.target
     setFormValue({ ...formValue, [name]: value })
   };
-  
+
   return (
     <Box>
       <Box width="100%" backgroundColor={theme.palette.background.alt} p="1rem 6%" textAlign='center'>
@@ -116,7 +116,9 @@ const Login = () => {
                 }
               }}
             >
-              Don't have an account? Sign Up here.
+              <Link to="/register">
+                <p>Don't have an account ? Sign Up</p>
+              </Link>
             </Typography>
           </Box>
         </form>

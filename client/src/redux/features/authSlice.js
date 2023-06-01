@@ -67,6 +67,20 @@ const authSlice = createSlice({
       state.loading = false
       state.error = action.payload.message
     })
+    .addCase(register.pending, (state) => {
+      state.loading = true
+    })
+    .addCase(register.fulfilled, (state, action) => {
+      state.loading = false
+      localStorage.setItem("user", JSON.stringify({
+        ...action.payload
+      }))
+      state.user = action.payload
+    })
+    .addCase(register.rejected, (state, action) => {
+      state.loading = false
+      state.error = action.payload.message
+    })
   }
 })
 
