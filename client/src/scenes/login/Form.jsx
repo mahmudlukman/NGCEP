@@ -1,12 +1,19 @@
 import { useState } from 'react';
-import { Box, Button, TextField, useMediaQuery, Typography, useTheme } from '@mui/material';
+import { Box, Button, TextField, useMediaQuery, Typography, useTheme, InputAdornment, IconButton } from '@mui/material';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import FlexBetween from '../../components/FlexBetween';
 
+const initialLoginState = {
+  email: "",
+  password: ""
+}
 
-const Form = () => {
+
+const Form = ({ name }) => {
+  const [formValue, setFormValue] = useState(initialLoginState);
+  const { email, password } = formValue;
   const [pageType, setPageType] = useState("login");
   const { palette } = useTheme();
   const dispatch = useDispatch();
@@ -41,15 +48,15 @@ const Form = () => {
               sx={{ gridColumn: "span 2" }}
             />
             <TextField
-              label="Email"
-              name="email"
-              type="email"
-              sx={{ gridColumn: "span 4" }}
-            />
-            <TextField
               label="Phone"
               name="phone"
               type="number"
+              sx={{ gridColumn: "span 4" }}
+            />
+            <TextField
+              label="Email"
+              name="email"
+              type="email"
               sx={{ gridColumn: "span 4" }}
             />
             <TextField
@@ -70,6 +77,7 @@ const Form = () => {
           <>
             <TextField
               label="Email"
+              type="email"
               name="email"
               sx={{ gridColumn: "span 4" }}
             />

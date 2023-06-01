@@ -1,3 +1,5 @@
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 import { CssBaseline, ThemeProvider } from '@mui/material'
 import { createTheme } from '@mui/material/styles'
 import { useMemo } from 'react'
@@ -16,6 +18,7 @@ function App() {
       <BrowserRouter>
         <ThemeProvider theme={theme}>
           <CssBaseline />
+          <ToastContainer />
           <Routes>
             <Route path="/" element={<Login />} />
             <Route element={<Layout />}>
