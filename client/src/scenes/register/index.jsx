@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react';
-import { Box, Button, TextField, useMediaQuery, Typography, useTheme, InputAdornment, IconButton } from '@mui/material';
+import { Box, Button, TextField, useMediaQuery, Typography, useTheme } from '@mui/material';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import { useNavigate, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from "react-toastify";
-import {login} from "../../redux/features/authSlice"
-import FlexBetween from '../../components/FlexBetween';
-import Form from './Form';
+import { login } from "../../redux/features/authSlice"
+
 
 const initialState = {
   email: "",
@@ -14,7 +13,7 @@ const initialState = {
 };
 
 
-const Login = () => {
+const Register = () => {
   const [formValue, setFormValue] = useState(initialState);
   const { loading, error } = useSelector((state) => ({ ...state.auth }))
   const { email, password } = formValue;
@@ -39,7 +38,7 @@ const Login = () => {
     let { name, value } = e.target
     setFormValue({ ...formValue, [name]: value })
   };
-  
+
   return (
     <Box>
       <Box width="100%" backgroundColor={theme.palette.background.alt} p="1rem 6%" textAlign='center'>
@@ -73,20 +72,39 @@ const Login = () => {
             }}
           >
             <TextField
+              label="First Name"
+              name="firstName"
+              type="text"
+              sx={{ gridColumn: "span 2" }}
+            />
+            <TextField
+              label="Last Name"
+              name="lastName"
+              type="text"
+              sx={{ gridColumn: "span 2" }}
+            />
+            <TextField
+              label="Phone"
+              name="phone"
+              type="number"
+              sx={{ gridColumn: "span 4" }}
+            />
+            <TextField
               label="Email"
-              type="email"
               name="email"
-              value={email}
-              onChange={onInputChange}
-              required
+              type="email"
               sx={{ gridColumn: "span 4" }}
             />
             <TextField
               label="Password"
-              type="password"
               name="password"
-              value={password}
-              onChange={onInputChange}
+              type="password"
+              sx={{ gridColumn: "span 4" }}
+            />
+            <TextField
+              label="Confirm Password"
+              name="password2"
+              type="password"
               sx={{ gridColumn: "span 4" }}
             />
           </Box>
@@ -104,7 +122,7 @@ const Login = () => {
                 "&:hover": { color: palette.primary.main },
               }}
             >
-              LOGIN
+              REGISTER
             </Button>
             <Typography
               sx={{
@@ -116,7 +134,7 @@ const Login = () => {
                 }
               }}
             >
-              Don't have an account? Sign Up here.
+              Already have an account? Login here.
             </Typography>
           </Box>
         </form>
@@ -125,4 +143,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default Register

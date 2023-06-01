@@ -9,6 +9,7 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Dashboard from './scenes/dashboard'
 import Layout from './scenes/layout'
 import Login from './scenes/login'
+import Register from './scenes/register'
 
 function App() {
   const mode = useSelector((state) => state.global.mode)
@@ -21,6 +22,7 @@ function App() {
           <ToastContainer />
           <Routes>
             <Route path="/" element={<Login />} />
+            <Route path="/register" element={<Register />} />
             <Route element={<Layout />}>
               <Route path="/dashboard" element={<Dashboard />} />
             </Route>

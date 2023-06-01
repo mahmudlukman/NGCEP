@@ -1,19 +1,26 @@
 import { useState } from 'react';
 import { LightModeOutlined, DarkModeOutlined, Menu as MenuIcon, Search, SettingsOutlined, ArrowDropDownOutlined } from '@mui/icons-material';
 import FlexBetween from '../components/FlexBetween';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setMode } from '../redux/features/globalSlice';
 import profileImage from '../assets/profile.jpeg'
 import { AppBar, Button, Box, Typography, Menu, IconButton, InputBase, MenuItem, Toolbar, useTheme } from '@mui/material';
+import { logout } from '../redux/features/authSlice';
+import {useNavigate} from 'react-router-dom'
 
-const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
+const Navbar = ({ isSidebarOpen, setIsSidebarOpen }) => {
   const dispatch = useDispatch();
   const theme = useTheme()
-
+  const navigate = useNavigate()
+  const {user} = useSelector((state) => ({...state.auth}))
   const [anchorEl, setAnchorEl] = useState(null);
   const isOpen = Boolean(anchorEl);
   const handleClick = (event) => setAnchorEl(event.currentTarget);
   const handleClose = () => setAnchorEl(null);
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate('/')
+  };
 
   return (
     <AppBar sx={{ position: "static", background: "none", boxShadow: "none" }}>
@@ -48,16 +55,16 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
               <Box component="img" alt="profile" src={profileImage} height="32px" width="32px" borderRadius="50%" sx={{ objectFit: "cover" }} />
               <Box textAlign="left">
                 <Typography fontWeight="bold" fontSize="0.85rem" sx={{ colo: theme.palette.secondary[100] }}>
-                  Usman
+                {user?.result?.name}
                 </Typography>
                 <Typography fontSize="0.75rem" sx={{ colo: theme.palette.secondary[200] }}>
-                  Banker
+                  Admin
                 </Typography>
               </Box>
               <ArrowDropDownOutlined sx={{ color: theme.palette.secondary[300], fontSize: "25px" }} />
             </Button>
             <Menu anchorEl={anchorEl} open={isOpen} onClose={handleClose} anchorOrigin={{vertical: "bottom", horizontal: "center"}}>
-              <MenuItem onClick={handleClose}>Log Out</MenuItem>
+              <MenuItem onClick={() => handleLogout()} >Log Out</MenuItem>
             </Menu>
           </FlexBetween>
         </FlexBetween>

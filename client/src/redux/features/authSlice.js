@@ -10,11 +10,13 @@ const initialState = {
 }
 
 // LOGIN
-export const login = createAsyncThunk("auth/login", async({
+export const login = createAsyncThunk("auth/login", async ({
   formValue,
   navigate,
   toast
-}, {rejectWithValue}) => {
+}, {
+  rejectWithValue
+}) => {
   try {
     const response = await api.signIn(formValue)
     toast.success("Login Successfully")
@@ -24,6 +26,21 @@ export const login = createAsyncThunk("auth/login", async({
     return rejectWithValue(err.response.data)
   }
 })
+
+// REGISTER
+export const register = createAsyncThunk(
+  "auth/register",
+  async ({ formValue, navigate, toast }, { rejectWithValue }) => {
+    try {
+      const response = await api.signUp(formValue);
+      toast.success("Register Successfully");
+      navigate("/dashboard");
+      return response.data;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
 
 const authSlice = createSlice({
   name: 'auth',
@@ -48,7 +65,7 @@ const authSlice = createSlice({
     })
     .addCase(login.rejected, (state, action) => {
       state.loading = false
-      state.error = action.payload
+      state.error = action.payload.message
     })
   }
 })

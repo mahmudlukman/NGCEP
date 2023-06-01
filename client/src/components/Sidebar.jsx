@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Box, Divider, Drawer, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Typography, useTheme} from "@mui/material";
 import {SettingsOutlined, ChevronLeft, ChevronRightRounded, HomeOutlined, ShoppingCartOutlined, Groups2Outlined, ReceiptLongOutlined, PublicOutlined, PointOfSaleOutlined, TodayOutlined, CalendarMonthOutlined, AdminPanelSettingsOutlined, TrendingUpOutlined, PieChartOutlined, ChevronRightOutlined} from "@mui/icons-material";
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import FlexBetween from './FlexBetween';
 import profileImage from '../assets/profile.jpeg'
 
@@ -64,11 +65,12 @@ const navItems = [
   },
 ]
 
-const Sidebar = ({user, drawerWidth, isSidebarOpen, setIsSidebarOpen, isNonMobile}) => {
+const Sidebar = ({ drawerWidth, isSidebarOpen, setIsSidebarOpen, isNonMobile}) => {
   const { pathname } = useLocation();
   const [active, setActive] = useState("");
   const navigate = useNavigate();
   const theme = useTheme();
+  const {user} = useSelector((state) => ({...state.auth}))
 
   useEffect(() => {
     setActive(pathname.substring(1));
@@ -163,10 +165,10 @@ const Sidebar = ({user, drawerWidth, isSidebarOpen, setIsSidebarOpen, isNonMobil
               <Box component="img" alt="profile" src={profileImage} height="40px" width="40px" borderRadius="50%" sx={{objectFit: "cover"}}/>
                 <Box textAlign="left">
                   <Typography fontWeight="bold" fontSize="0.9rem" sx={{colo: theme.palette.secondary[100]}}>
-                    Usman
+                  {user?.result?.name}
                   </Typography>
                   <Typography fontSize="0.8rem" sx={{colo: theme.palette.secondary[200]}}>
-                    Banker
+                    Admin
                   </Typography>
                 </Box>
                 <SettingsOutlined sx={{color: theme.palette.secondary[300], fontSize: "25px"}}/>
