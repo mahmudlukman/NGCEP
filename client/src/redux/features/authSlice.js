@@ -5,6 +5,7 @@ const user = JSON.parse(localStorage.getItem('user'))
 
 const initialState = {
   user: user ? user : null,
+  users: [],
   error: '',
   loading: false
 }
@@ -41,6 +42,16 @@ export const register = createAsyncThunk(
     }
   }
 );
+
+// GET ALL USERS
+export const getUsers = createAsyncThunk("user/getUsers", async(_, {rejectWithValue}) => {
+  try {
+    const response = await api.getUsers();
+      return response.data;
+  } catch (err) {
+    return rejectWithValue(err.response.data);
+  }
+})
 
 const authSlice = createSlice({
   name: 'auth',
@@ -80,6 +91,17 @@ const authSlice = createSlice({
     .addCase(register.rejected, (state, action) => {
       state.loading = false
       state.error = action.payload.message
+    })
+    .addCase(getUsers.pending, (state) => {
+      state.loading = true;
+    })
+    .addCase(getUsers.fulfilled, (state, action) => {
+      state.loading = false;
+      state.users = action.payload;
+    })
+    .addCase(getUsers.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload.message;
     })
   }
 })

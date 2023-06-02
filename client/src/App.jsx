@@ -5,11 +5,13 @@ import { createTheme } from '@mui/material/styles'
 import { useMemo } from 'react'
 import { useSelector } from 'react-redux'
 import { themeSettings } from './theme'
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Dashboard from './scenes/dashboard'
 import Layout from './scenes/layout'
 import Login from './scenes/login'
 import Register from './scenes/register'
+import Products from "./scenes/products"
+import Customers from "./scenes/customers"
 
 function App() {
   const mode = useSelector((state) => state.global.mode)
@@ -25,6 +27,8 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route element={<Layout />}>
               <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/products" element={<Products />} />
+              <Route path="/customers" element={<Customers />} />
             </Route>
           </Routes>
         </ThemeProvider>
