@@ -7,3 +7,4 @@ export const signUp = (formData) => API.post('/auth/signup', formData)
 
 export const getProducts = () => API.get("/products")
 export const getUsers = () => API.get("/users")
+export const createProduct = (formData) => API.post("/products", formData)

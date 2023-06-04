@@ -10,6 +10,17 @@ export const getProducts = createAsyncThunk("product/getProducts", async(_, {rej
   }
 })
 
+export const createProduct = createAsyncThunk("product/createProduct", async ({productData, navigate, toast}, {rejectWithValue}) => {
+  try {
+    const response = await api.createProduct(productData)
+    toast.success("Product Added Successfully")
+    navigate("/products")
+    return response.data
+  } catch (err) {
+    return rejectWithValue(err.response.data)
+  }
+})
+
 const productSlice = createSlice({
   name: "product",
   initialState: {
@@ -29,6 +40,17 @@ const productSlice = createSlice({
       state.products = action.payload;
     })
     .addCase(getProducts.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload.message;
+    })
+    .addCase(createProduct.pending, (state) => {
+      state.loading = true;
+    })
+    .addCase(createProduct.fulfilled, (state, action) => {
+      state.loading = false;
+      state.products = [action.payload];
+    })
+    .addCase(createProduct.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload.message;
     })

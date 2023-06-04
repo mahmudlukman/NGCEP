@@ -60,7 +60,7 @@ const Product = ({
 const Products = () => {
   const {products, loading} = useSelector((state) => ({...state.product}))
   const dispatch = useDispatch();
- console.log(products)
+
   useEffect(() => {
     dispatch(getProducts())
   }, [])
