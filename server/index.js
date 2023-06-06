@@ -7,6 +7,13 @@ import helmet from 'helmet';
 import userRouter from './routes/user.js'
 import authRouter from './routes/auth.js'
 import productRouter from './routes/product.js'
+import geographyRouter from './routes/geography.js'
+import salesRouter from './routes/sales.js'
+import generalRouter from './routes/general.js'
+
+import Transaction from './models/Transaction.js';
+import OverallStat from './models/overallStat.js';
+import { dataTransaction, dataOverallStat } from "./data/index.js"
 
 // CONFIGURATION
 dotenv.config();
@@ -23,6 +30,9 @@ app.use(cors());
 app.use("/auth", authRouter)
 app.use("/users", userRouter)
 app.use("/products", productRouter)
+app.use("/geography", geographyRouter)
+app.use("/sales", salesRouter)
+app.use("/general", generalRouter);
 
 
  // MONGOOSE SETUP
@@ -32,5 +42,6 @@ app.use("/products", productRouter)
    useUnifiedTopology: true,
  }).then(() => {
    app.listen(PORT, () => console.log(`Server Port: ${PORT}`))
- 
+  //  Transaction.insertMany(dataTransaction);
+  // OverallStat.insertMany(dataOverallStat);
  }).catch((error) => console.log(`${error} did not connect`))
