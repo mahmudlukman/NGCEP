@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const apa = createApi({
-  baseQuery: fetchBaseQuery({baseUrl: "http://localhost:5000"}),
+  baseQuery: fetchBaseQuery({baseUrl: "https://ngcep.onrender.com"}),
   reducerPath: "adminApi",
   tagTypes: ["User", "Products", "Customers", "Transactions", "Geography", "Sales", "Admins", "Performance", "Dashboard"],
   endpoints: (build) => ({

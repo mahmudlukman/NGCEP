@@ -49,7 +49,7 @@ const Login = () => {
           color={theme.palette.secondary.main}
 
         >
-          NESREA
+          NGCEP
         </Typography>
       </Box>
 
@@ -61,7 +61,7 @@ const Login = () => {
         backgroundColor={theme.palette.background.alt}
       >
         <Typography fontWeight="500" variant="h5" sx={{ mb: "1.5rem" }}>
-          Welcome to NESREA!
+          Welcome to NGCEP!
         </Typography>
         <form onSubmit={handleSubmit}>
           <Box
